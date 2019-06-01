@@ -1,0 +1,8 @@
+{% extends "read_only_site/base.html" %}
+{% block content %}
+<h2>Latest Matches</h2>
+
+{% for match in matches %}
+    <a href="{% url 'read_only_site:match' match.pk %}">{{match.player_1.discord_handle}} VS {{match.player_2.discord_handle}} on {{match.played_on}}</a><br>
+{% endfor %}
+{% endblock content %}

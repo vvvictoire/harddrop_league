@@ -1,0 +1,8 @@
+{% extends "read_only_site/base.html" %}
+{% block content %}
+<h2>Leaderboard</h2>
+
+{% for player in players %}
+    <a href="{% url 'read_only_site:player' player.discord_handle %}">{{ player.discord_handle }}</a>, skill: {{player.trueskill_mu | floatformat:"0"}}<br>
+{% endfor %}
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Hard Drop League</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'read_only_site/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'read_only_site/css/sticky_footer.css' %}">
+  </head>
+  <body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+        <h1 class="cover-heading">Hard Drop League</h1>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" href="{% url 'read_only_site:index' %}">Home</a>
+        <a class="nav-link" href="{% url 'read_only_site:leaderboard' %}">Leaderboard</a>
+        <a class="nav-link" href="{% url 'read_only_site:latest_matches' %}">Latest matches</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
+    {% block content %}
+    {% endblock content %}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      This site is in alpha stage. It'll get better with time.
+    </div>
+  </footer>
+</div>
+</body>
+</html>

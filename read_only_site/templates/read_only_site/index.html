@@ -1,0 +1,34 @@
+{% extends "read_only_site/base.html" %}
+{% load static %}
+{% block content %}
+<h2>Welcome to the Hard Drop League!</h2>
+
+<img src="{% static 'read_only_site/img/hard_drop_logo.png' %}">
+
+<h3>How do I register?</h3>
+Go to the Hard Drop Discord (<a href="https://discord.gg/harddrop">https://discord.gg/harddrop</a>),
+and type <span class="badge badge-dark">!register</span> in the #tournament channel.
+
+<br><br>
+
+<h3>How do I submit my score?</h3>
+The loser of the match has to type <span class="badge badge-dark">!winner @mention</span>,
+with @mention mentionning the winner.
+
+<br><br>
+
+<h3>What kind of matches can I play?</h3>
+It's up to you! Agree with the other player what kind of format you want to play.
+The base format should be first to 7.
+
+<br><br>
+
+<h3>What is skill?</h3>
+Skill is a number determining your skill regarding the other players skill.
+The higher the better!
+
+<br><br>
+
+<h3>I need help! Something's wrong!</h3>
+Mention Lady Trucy on the Hard Drop Discord.
+{% endblock %}

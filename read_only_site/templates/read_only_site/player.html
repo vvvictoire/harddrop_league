@@ -1,0 +1,6 @@
+{% extends "read_only_site/base.html" %}
+{% block content %}
+<h2>{{player.discord_handle}}</h2>
+
+<h3>Skill: {{player.trueskill_mu | floatformat:"0"}}</h3>
+{% endblock content %}
