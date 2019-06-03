@@ -19,13 +19,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'px1_j9u#m(u_x_!4&9o5c1qn9!!4x+o6so7wk5^2&dl)0*jjh!'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: keep the secret key used in production secret!
+if DEBUG:
+    SECRET_KEY = 'px1_j9u#m(u_x_!4&9o5c1qn9!!4x+o6so7wk5^2&dl)0*jjh!'
+else:
+    SECRET_KEY = 'dxR!v%0FFK-]4_3yFSIL;NgxMn"?\rR%v~K43|FJ]t{;cU*-C;SOD}E{Ao7Khs|y9tLX!9J%cB/5a|{22l@!6(6f[k3iEQ|"vk'
+
+if DEBUG:
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ['harddrop.trucy.fr']
 
 
 # Application definition
