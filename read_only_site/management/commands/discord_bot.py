@@ -2,9 +2,10 @@ from django.core.management.base import BaseCommand, CommandError
 from read_only_site.models import Player, Match
 import discord
 from discord.ext import commands
-from ._discord_key import token
 
 bot = commands.Bot(command_prefix='!')
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '_discord_token'), 'r') as file:
+    token = file.read().replace('\n', '')
 
 @bot.command()
 async def register(context):

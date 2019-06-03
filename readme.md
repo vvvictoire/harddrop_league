@@ -12,10 +12,10 @@ Then run `pip install -r requirements.txt`
 
 Execute `manage.py createsuperuser`.
 
-Create a `local_settings.py` in `league_site`, containing the `secret` variable.
+Create a `secret` file in `league_site`, containing the Django secret key.
 
-Create a `_discord_key.py` in `league_site/read_only_site/management/commands`,
-containing the `token` variable.
+Create a `_discord_token` file in `league_site/read_only_site/management/commands`,
+containing the Discord bot token.
 
 ### Building
 
