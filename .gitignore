@@ -6,7 +6,8 @@ __pycache__
 db.sqlite3
 media
 static
-league_site/settings.py
+league_site/local_settings.py
+league_site/read_only_site/management/commands/_discord_key.py
 # Backup files #
 *.bak
 

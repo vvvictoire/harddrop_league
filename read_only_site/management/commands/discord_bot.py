@@ -2,12 +2,9 @@ from django.core.management.base import BaseCommand, CommandError
 from read_only_site.models import Player, Match
 import discord
 from discord.ext import commands
+import _discord_key
 
 bot = commands.Bot(command_prefix='!')
-
-@bot.command()
-async def ping(context):
-    await context.send('pong')
 
 @bot.command()
 async def register(context):
@@ -46,4 +43,4 @@ class Command(BaseCommand):
     help = 'Launches the discord bot'
 
     def handle(self, *args, **options):
-        bot.run('NTg0MDMzMDk4NjM1NjczNjA2.XPQ0kA.OjMMkZ8SIKQxt9c4U1Qflj3Am6I')
+        bot.run(_discord_key.token)

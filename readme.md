@@ -10,7 +10,12 @@ Then run `pip install -r requirements.txt`
 
 ### First run
 
-Execute `manage.py createsuperuser`
+Execute `manage.py createsuperuser`.
+
+Create a `local_settings.py` in `league_site`, containing the `secret` variable.
+
+Create a `_discord_key.py` in `league_site/read_only_site/management/commands`,
+containing the `token` variable.
 
 ### Building
 
