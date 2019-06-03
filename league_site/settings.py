@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import league_site.local_settings
+from .local_settings import secret
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,7 +27,7 @@ DEBUG = True
 if DEBUG:
     SECRET_KEY = 'px1_j9u#m(u_x_!4&9o5c1qn9!!4x+o6so7wk5^2&dl)0*jjh!'
 else:
-    SECRET_KEY = local_settings.secret
+    SECRET_KEY = secret
 
 if DEBUG:
     ALLOWED_HOSTS = []

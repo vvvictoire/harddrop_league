@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from read_only_site.models import Player, Match
 import discord
 from discord.ext import commands
-import read_only_site.management.commands._discord_key
+from ._discord_key import token
 
 bot = commands.Bot(command_prefix='!')
 
@@ -43,4 +43,4 @@ class Command(BaseCommand):
     help = 'Launches the discord bot'
 
     def handle(self, *args, **options):
-        bot.run(_discord_key.token)
+        bot.run(token)
