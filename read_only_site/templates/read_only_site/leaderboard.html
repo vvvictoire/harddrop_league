@@ -2,7 +2,21 @@
 {% block content %}
 <h2>Leaderboard</h2>
 
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Skill</th>
+        </tr>
+    </thead>
+    <tbody>
 {% for player in players %}
-    <a href="{% url 'read_only_site:player' player.discord_handle %}">{{ player.discord_handle }}</a>, skill: {{player.trueskill_mu | floatformat:"0"}}<br>
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td><a href="{% url 'read_only_site:player' player.discord_handle %}">
+            {{ player.discord_handle }}</a></td>
+            <td>{{player.trueskill_mu | floatformat:"0"}}</td>
+        </tr>
 {% endfor %}
 {% endblock content %}
