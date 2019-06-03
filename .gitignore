@@ -7,7 +7,7 @@ db.sqlite3
 media
 static
 league_site/secret
-league_site/read_only_site/management/commands/_discord_token
+read_only_site/management/commands/_discord_token
 # Backup files #
 *.bak
 
