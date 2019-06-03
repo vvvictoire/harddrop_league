@@ -1,8 +1,20 @@
-# How to install
+# Harddrop League site and Discord bot
+
+## How to install
 
 Create a virtualenv with the `virtualenv` command. `venv` will **NOT** work.
 
 Then run `pip install -r requirements.txt`
+
+## How to build
+
+### First run
+
+Execute `manage.py createsuperuser`
+
+### Building
+
+Execute `manage.py collectstatic`
 
 ## Apache configuration
 $path is the path to the virtualenv
