@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import sys
 with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'secret'), 'r') as file:
     secret = file.read().replace('\n', '')
 
