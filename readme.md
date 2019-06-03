@@ -54,4 +54,5 @@ $path is the path to the virtualenv
     WSGIDaemonProcess league_site python-home=$path python-path=$path/league_site
     WSGIScriptAlias / $path/league_site/league_site/wsgi.py
 
-</VirtualHost>```
+</VirtualHost>
+```
