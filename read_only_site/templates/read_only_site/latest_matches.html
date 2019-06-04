@@ -2,7 +2,24 @@
 {% block content %}
 <h2>Latest Matches</h2>
 
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Player 1</th>
+            <th>Player 2</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
 {% for match in matches %}
-    <a href="{% url 'read_only_site:match' match.pk %}">{{match.player_1.discord_handle}} VS {{match.player_2.discord_handle}} on {{match.played_on}}</a><br>
+        <tr>
+            <td>{{match.player_1.discord_handle}}</td>
+            <td>{{match.player_2.discord_handle}}</td>
+            <td>{{match.played_on}}</td>
+            <td><a href="{% url 'read_only_site:match' match.pk %}">Match details</a></td>
+        </tr>
 {% endfor %}
+    </tbody>
+</table>
 {% endblock content %}
