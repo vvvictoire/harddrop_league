@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import sys
-with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'secret'), 'r') as file:
-    secret = file.read().replace('\n', '')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,9 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = len(sys.argv) > 1 and sys.argv[1] == 'runserver'
-#DEBUG = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'secret'), 'r') as file:
+    secret = file.read().replace('\n', '')
 if DEBUG:
     SECRET_KEY = 'px1_j9u#m(u_x_!4&9o5c1qn9!!4x+o6so7wk5^2&dl)0*jjh!'
 else:
