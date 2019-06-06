@@ -6,7 +6,8 @@
     <thead class="thead-dark">
         <tr>
             <th>Rank</th>
-            <th>Name</th>
+            <th>Discord Name</th>
+            <th>jstris Name
             <th>Skill</th>
         </tr>
     </thead>
@@ -16,6 +17,8 @@
             <td>{{forloop.counter}}</td>
             <td><a href="{% url 'read_only_site:player' player.discord_handle %}">
             {{ player.discord_handle }}</a></td>
+            <td><a href="{% url 'read_only_site:player' player.jstris_handle %}">
+            {{ player.jstris_handle }}</a></td>
             <td>{{player.trueskill_mu | floatformat:"0"}}</td>
         </tr>
 {% endfor %}

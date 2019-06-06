@@ -5,6 +5,7 @@ from trueskill import Rating, rate_1vs1, backends, setup
 # Create your models here.
 class Player(models.Model):
     discord_handle = models.CharField(max_length=200, default=None)
+    jstris_handle = models.CharField(max_length=200, default=None)
     signup_date = models.DateTimeField(auto_now_add=True)
     trueskill_mu = models.FloatField(default=300.0)
     trueskill_sigma = models.FloatField(default=200.0)

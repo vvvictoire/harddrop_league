@@ -7,7 +7,7 @@ def index(request):
     return render(request, 'read_only_site/index.html')
 
 def player(request, player_name):
-    player = get_object_or_404(Player, discord_handle=player_name)
+    player = get_object_or_404(Player, jstris_handle=player_name)
     context = {'player': player}
     return render(request, 'read_only_site/player.html', context)
 

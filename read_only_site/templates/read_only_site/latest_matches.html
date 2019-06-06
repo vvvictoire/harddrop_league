@@ -5,8 +5,8 @@
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
-            <th>Player 1</th>
-            <th>Player 2</th>
+            <th>Player 1 (Discord/jstris)</th>
+            <th>Player 2 (Discord/jstris)</th>
             <th>Date</th>
             <th></th>
         </tr>
@@ -14,8 +14,8 @@
     <tbody>
 {% for match in matches %}
         <tr>
-            <td>{{match.player_1.discord_handle}}</td>
-            <td>{{match.player_2.discord_handle}}</td>
+            <td>{{match.player_1.discord_handle}}/{{match.player_1.jstris_handle}}</td>
+            <td>{{match.player_2.discord_handle}}/{{match.player_2.jstris_handle}}</td>
             <td>{{match.played_on}}</td>
             <td><a href="{% url 'read_only_site:match' match.pk %}">Match details</a></td>
         </tr>
