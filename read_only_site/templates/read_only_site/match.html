@@ -2,7 +2,7 @@
 {% block content %}
 <h2>{{match.player_1.discord_handle}} VS {{match.player_2.discord_handle}}</h2>
 
-<h3>Winner: {{match.winner.discord_handle}}</h3>
+<h3>Winner: {{match.winner.discord_handle}} ({{match.winner.discord_handle}})</h3>
 
 {{match.player_1.discord_handle}} skill: {{match.player_1_trueskill_mu_before_match| floatformat:"0"}} -> {{match.player_1_trueskill_mu_after_match| floatformat:"0"}}<br>
 
