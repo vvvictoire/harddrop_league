@@ -2,5 +2,31 @@
 {% block content %}
 <h2>{{player.complete_nick}}</h2>
 
+<br><br>
+
 <h3>Skill: {{player.trueskill_mu | floatformat:"0"}}</h3>
+
+<br><br>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Player 1 (Discord/jstris)</th>
+            <th>Player 2 (Discord/jstris)</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+{% for match in matches %}
+        <tr>
+            <td><a href="{% url 'read_only_site:player' match.player_1.jstris_handle %}">{{match.player_1.complete_nick}}</a></td>
+            <td><a href="{% url 'read_only_site:player' match.player_2.jstris_handle %}">{{match.player_2.complete_nick}}</a></td>
+            <td>{{match.played_on}}</td>
+            <td><a href="{% url 'read_only_site:match' match.pk %}">Match details</a></td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+
 {% endblock content %}

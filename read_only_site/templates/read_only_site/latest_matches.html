@@ -14,8 +14,8 @@
     <tbody>
 {% for match in matches %}
         <tr>
-            <td>{{match.player_1.complete_nick}}</td>
-            <td>{{match.player_2.complete_nick}}</td>
+            <td><a href="{% url 'read_only_site:player' match.player_1.jstris_handle %}">{{match.player_1.complete_nick}}</a></td>
+            <td><a href="{% url 'read_only_site:player' match.player_2.jstris_handle %}">{{match.player_2.complete_nick}}</a></td>
             <td>{{match.played_on}}</td>
             <td><a href="{% url 'read_only_site:match' match.pk %}">Match details</a></td>
         </tr>

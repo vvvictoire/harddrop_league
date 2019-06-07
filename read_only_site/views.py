@@ -1,5 +1,6 @@
 """Manage the read_only_site views"""
 
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from .models import Player, Match
 
@@ -11,7 +12,9 @@ def index(request):
 def player(request, player_name):
     """Stats for a single player"""
     player_to_get = get_object_or_404(Player, jstris_handle=player_name)
-    context = {'player': player_to_get}
+    # Get matches with that player
+    matches = Match.objects.filter(Q(player_1=player_to_get) | Q(player_2=player_to_get))
+    context = {'player': player_to_get, 'matches': matches}
     return render(request, 'read_only_site/player.html', context)
 
 def match(request, match_pk):

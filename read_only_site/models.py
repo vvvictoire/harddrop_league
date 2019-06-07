@@ -41,11 +41,11 @@ class Match(models.Model):
                 self.player_2.jstris_handle +
                 ' on ' +
                 str(self.played_on))
-    def save(self, *args, **kwargs):
+    def save(self):
         """Registers a match in the database"""
         if not self.pk:  # object is being created, thus no primary key field yet
             self.rate_match()
-        super(Match, self).save(*args, **kwargs)
+        super(Match, self).save()
     def rate_match(self):
         """Use TrueSkill to modify players skill"""
         # TrueSkill setup
