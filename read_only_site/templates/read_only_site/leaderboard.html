@@ -15,8 +15,8 @@
 {% for player in players %}
         <tr>
             <td>{{forloop.counter}}</td>
-            <td><a href="{% url 'read_only_site:player' player.discord_handle %}">
-            {{ player.discord_handle }}</a></td>
+            <td><a href="{% url 'read_only_site:player' player.jstris_handle %}">
+            {{ player.discord_nickname }}</a></td>
             <td><a href="{% url 'read_only_site:player' player.jstris_handle %}">
             {{ player.jstris_handle }}</a></td>
             <td>{{player.trueskill_mu | floatformat:"0"}}</td>

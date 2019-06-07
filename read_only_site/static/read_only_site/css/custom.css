@@ -33,3 +33,8 @@ body {
   color: #fff;
   text-decoration: none;
 }
+
+/* Bigger font size */
+.large-text {
+  font-size: 150%;
+}

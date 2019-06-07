@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from read_only_site.models import Player, Match
 import discord
+import os
 from discord.ext import commands
 
 bot = commands.Bot(command_prefix='!')
@@ -8,13 +9,16 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '_discord_tok
     token = file.read().replace('\n', '')
 
 @bot.command()
-async def register(context):
+async def register(context, jstris_handle: str):
     player = str(context.message.author)
+    nickname = context.message.author.display_name
     mention = context.message.author.mention
     # check if player already exists
-    new_player, created = Player.objects.get_or_create(discord_handle=player)
+    new_player, created = Player.objects.get_or_create(discord_handle=player,
+                                                       discord_nickname=nickname,
+                                                       jstris_handle=jstris_handle)
     if created:
-        await context.send(mention + ' is registered!')
+        await context.send(mention + ' is now registered!')
     else:
         await context.send(mention + ', you already were registered you cheeky m8')
 

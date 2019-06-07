@@ -4,7 +4,47 @@
 
 <h3>Winner: {{match.winner.discord_handle}} ({{match.winner.discord_handle}})</h3>
 
-{{match.player_1.discord_handle}} skill: {{match.player_1_trueskill_mu_before_match| floatformat:"0"}} -> {{match.player_1_trueskill_mu_after_match| floatformat:"0"}}<br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">{{match.player_1.discord_handle}}</h4>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col large-text">Old skill:</div>
+              <div class="col large-text">
+                {{match.player_1_trueskill_mu_before_match| floatformat:"0"}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col large-text">New skill:</div>
+              <div class="col large-text">
+                {{match.player_1_trueskill_mu_after_match| floatformat:"0"}}
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">{{match.player_2.discord_handle}}</h4>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col large-text">Old skill:</div>
+              <div class="col large-text">
+                {{match.player_2_trueskill_mu_before_match| floatformat:"0"}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col large-text">New skill:</div>
+              <div class="col large-text">
+                {{match.player_2_trueskill_mu_after_match| floatformat:"0"}}
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-{{match.player_2.discord_handle}} skill: {{match.player_2_trueskill_mu_before_match| floatformat:"0"}} -> {{match.player_2_trueskill_mu_after_match| floatformat:"0"}}
 {% endblock content %}
