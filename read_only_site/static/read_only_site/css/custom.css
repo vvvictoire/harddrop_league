@@ -23,9 +23,7 @@ body {
  */
 
 .site-header {
-  background-color: rgba(0, 0, 0, .85);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  background-color: rgb(0, 0, 0);
 }
 .site-header a {
   color: #999;
