@@ -5,6 +5,7 @@ import sys
 
 
 def main():
+    """Main method"""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'league_site.settings')
     try:
         from django.core.management import execute_from_command_line
