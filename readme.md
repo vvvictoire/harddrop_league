@@ -4,7 +4,7 @@
 
 Create a virtualenv with the `virtualenv` command. `venv` will **NOT** work.
 
-Then run `pip install -r requirements.txt`
+Then run `pip install -r requirements.txt`.
 
 ## How to build
 
@@ -12,9 +12,10 @@ Then run `pip install -r requirements.txt`
 
 1.Execute `manage.py createsuperuser`.
 
-2.Create a `secret` file in `league_site`, containing the Django secret key.
+2.Create a `secret` file in the parent directory of this file, containing the
+Django secret key.
 
-3.Create a `_discord_token` file in `league_site/read_only_site/management/commands`,
+3.Create a `_discord_token` file in the parent directory of this file,
 containing the Discord bot token.
 
 ### Building
