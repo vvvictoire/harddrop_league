@@ -12,7 +12,7 @@ class Player(models.Model):
     jstris_handle = models.CharField(max_length=200, default=None)
     signup_date = models.DateTimeField(auto_now_add=True)
     trueskill_mu = models.FloatField(default=300.0)
-    trueskill_sigma = models.FloatField(default=200.0)
+    trueskill_sigma = models.FloatField(default=100.0)
     def complete_nick(self):
         """Returns a displayable, complete name"""
         return self.discord_nickname + '/' + self.jstris_handle
@@ -49,7 +49,7 @@ class Match(models.Model):
     def rate_match(self):
         """Use TrueSkill to modify players skill"""
         # TrueSkill setup
-        setup(mu=300.0, sigma=200.0, beta=50.0, tau=3.0)
+        setup(mu=300.0, sigma=100.0, beta=50.0, tau=3.0)
         if 'scipy' in backends.available_backends():
             # scipy can be used in the current environment
             backends.choose_backend(backend='scipy')
