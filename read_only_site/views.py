@@ -13,7 +13,7 @@ def player(request, player_name):
     """Stats for a single player"""
     player_to_get = get_object_or_404(Player, jstris_handle=player_name)
     # Get matches with that player
-    matches = Match.objects.filter(Q(player_1=player_to_get) | Q(player_2=player_to_get))
+    matches = Match.objects.filter(Q(player_1=player_to_get) | Q(player_2=player_to_get)).order_by('-played_on')
     context = {'player': player_to_get, 'matches': matches}
     return render(request, 'read_only_site/player.html', context)
 

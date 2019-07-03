@@ -14,9 +14,6 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '_discord_tok
 @BOT.command()
 async def register(context, jstris_handle: str):
     """Registers a new player (format: !register jstris_handle)"""
-    if jstris_handle == '':
-        help_register(context)
-        return
     player = str(context.message.author)
     nickname = context.message.author.display_name
     mention = context.message.author.mention
