@@ -52,11 +52,11 @@ async def winner(context):
         return
     match = Match(player_1=player_loser, player_2=player_winner, winner=player_winner)
     try:
-        saved_match = match.save()
+        match.save()
     except Exception as exception:
         await context.send(exception)
         return
-    await context.send('Match saved! https://harddrop.trucy.fr/matches/' + saved_match.pk)
+    await context.send('Match saved!')
 
 @BOT.command()
 async def github(context):
