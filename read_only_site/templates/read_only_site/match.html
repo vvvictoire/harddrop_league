@@ -4,7 +4,7 @@
 
 <br><br>
 
-<h3>Winner: {{match.winner.complete_nick}}</h3>
+<h3>Winner: {{match.winner}}</h3>
 
 <br><br>
 
@@ -13,7 +13,7 @@
     <div class="col">
       <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">
-          <a href="{% url 'read_only_site:player' match.player_1.jstris_handle %}">{{match.player_1.complete_nick}}</a>
+          <a href="{% url 'read_only_site:player' match.player_1.jstris_handle %}">{{match.player_1}}</a>
         </h4>
           <div class="container-fluid">
             <div class="row">
@@ -34,7 +34,7 @@
     <div class="col">
       <div class="alert alert-danger" role="alert">
         <h4 class="alert-heading">
-          <a href="{% url 'read_only_site:player' match.player_2.jstris_handle %}">{{match.player_2.complete_nick}}</a>
+          <a href="{% url 'read_only_site:player' match.player_2.jstris_handle %}">{{match.player_2}}</a>
         </h4>
           <div class="container-fluid">
             <div class="row">

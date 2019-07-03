@@ -4,7 +4,6 @@ from django.db import models
 from trueskill import Rating, backends, rate_1vs1, setup
 
 
-# Create your models here.
 class Player(models.Model):
     """Manages a player during a league"""
     discord_handle = models.CharField(max_length=200, default=None)
@@ -14,9 +13,6 @@ class Player(models.Model):
     trueskill_mu = models.FloatField(default=300.0)
     trueskill_sigma = models.FloatField(default=100.0)
     banned = models.BooleanField(default=False)
-    def complete_nick(self):
-        """Returns a displayable, complete name"""
-        return self.discord_nickname + '/' + self.jstris_handle
     def __str__(self):
         return self.discord_nickname + '/' + self.jstris_handle
 
