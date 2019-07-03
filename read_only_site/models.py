@@ -13,11 +13,12 @@ class Player(models.Model):
     signup_date = models.DateTimeField(auto_now_add=True)
     trueskill_mu = models.FloatField(default=300.0)
     trueskill_sigma = models.FloatField(default=100.0)
+    banned = models.BooleanField(default=False)
     def complete_nick(self):
         """Returns a displayable, complete name"""
         return self.discord_nickname + '/' + self.jstris_handle
     def __str__(self):
-        return self.discord_handle + ' ' + str(self.trueskill_mu) + ' ' + str(self.trueskill_sigma)
+        return self.discord_nickname + '/' + self.jstris_handle
 
 class Match(models.Model):
     """Manages a league match, in a tournament or not"""
@@ -43,9 +44,11 @@ class Match(models.Model):
                 str(self.played_on))
     def save(self):
         """Registers a match in the database"""
+        if self.player_1.banned or self.player_2.banned:
+            raise Exception('Can\'t play a match against a banned player!')
         if not self.pk:  # object is being created, thus no primary key field yet
             self.rate_match()
-        super(Match, self).save()
+        return super(Match, self).save()
     def rate_match(self):
         """Use TrueSkill to modify players skill"""
         # TrueSkill setup

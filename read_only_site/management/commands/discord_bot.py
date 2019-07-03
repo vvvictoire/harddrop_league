@@ -13,14 +13,17 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '_discord_tok
 
 @BOT.command()
 async def register(context, jstris_handle: str):
-    """Registers a new player"""
+    """Registers a new player (format: !register jstris_handle)"""
+    if jstris_handle == '':
+        help_register(context)
+        return
     player = str(context.message.author)
     nickname = context.message.author.display_name
     mention = context.message.author.mention
     # check if player already exists
     _, created = Player.objects.get_or_create(discord_handle=player,
-                                              discord_nickname=nickname,
-                                              jstris_handle=jstris_handle)
+                                              defaults={'discord_nickname': nickname,
+                                                        'jstris_handle': jstris_handle})
     if created:
         await context.send(mention + ' is now registered!')
     else:
@@ -39,9 +42,11 @@ async def winner(context):
     try:
         player_loser = Player.objects.get(discord_handle=loser_handle)
     except Player.DoesNotExist:
-        await context.send(loser_mention + ', you are not registered in the'
-                                           'league! Type !register to register'
-                                           'in the league.')
+        await context.send(loser_mention +
+                           ', you are not registered in the'
+                           'league! Type ' +
+                           BOT.command_prefix +
+                           'register to register in the league.')
         return
     try:
         player_winner = Player.objects.get(discord_handle=winner_handle)
@@ -49,8 +54,17 @@ async def winner(context):
         await context.send(winner_mention + ' is not (yet) registered in the league!')
         return
     match = Match(player_1=player_loser, player_2=player_winner, winner=player_winner)
-    match.save()
-    await context.send('Match saved!')
+    try:
+        saved_match = match.save()
+    except Exception as exception:
+        await context.send(exception)
+        return
+    await context.send('Match saved! https://harddrop.trucy.fr/matches/' + saved_match.pk)
+
+@BOT.command()
+async def github(context):
+    """Displays the link to the github repository"""
+    await context.send('https://github.com/vvvictoire/harddrop_league')
 
 class Command(BaseCommand):
     """Command class to manage the discord_bot command"""

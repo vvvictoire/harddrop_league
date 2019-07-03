@@ -25,7 +25,7 @@ def match(request, match_pk):
 
 def leaderboard(request):
     """Leaderboard, based on trueskill_mu"""
-    players = Player.objects.order_by('-trueskill_mu')
+    players = Player.objects.filter(banned=False).exclude(trueskill_mu=300).order_by('-trueskill_mu')
     context = {'players': players}
     return render(request, 'read_only_site/leaderboard.html', context)
 
