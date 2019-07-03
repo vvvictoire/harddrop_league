@@ -3,6 +3,17 @@
 from django.db import models
 from trueskill import Rating, backends, rate_1vs1, setup
 
+# More details about the constants on https://trueskill.org
+# the initial mean of ratings
+TRUESKILL_MU = 300.0
+# the initial standard deviation of ratings. The recommended value is a third of mu.
+TRUESKILL_SIGMA = 100.0
+# the distance which guarantees about 76% chance of winning.
+# The recommended value is a half of sigma.
+TRUESKILL_BETA = 50.0
+# the dynamic factor which restrains a fixation of rating.
+# The recommended value is sigma per cent.
+TRUESKILL_TAU = 3.0
 
 class Player(models.Model):
     """Manages a player during a league"""
@@ -10,10 +21,11 @@ class Player(models.Model):
     discord_nickname = models.CharField(max_length=200, default=None)
     jstris_handle = models.CharField(max_length=200, default=None)
     signup_date = models.DateTimeField(auto_now_add=True)
-    trueskill_mu = models.FloatField(default=300.0)
-    trueskill_sigma = models.FloatField(default=100.0)
+    trueskill_mu = models.FloatField(default=TRUESKILL_MU)
+    trueskill_sigma = models.FloatField(default=TRUESKILL_SIGMA)
     banned = models.BooleanField(default=False)
     def __str__(self):
+        """Returns a string in the format discord_nickname/jstris_handle to display"""
         return self.discord_nickname + '/' + self.jstris_handle
 
 class Match(models.Model):
@@ -33,9 +45,9 @@ class Match(models.Model):
     player_2_trueskill_sigma_after_match = models.FloatField(blank=True, default=0.0)
     tournament_match = models.BooleanField(default=False)
     def __str__(self):
-        return (self.player_1.jstris_handle +
+        return (self.player_1.discord_nickname +
                 ' VS ' +
-                self.player_2.jstris_handle +
+                self.player_2.discord_nickname +
                 ' on ' +
                 str(self.played_on))
     def save(self):
@@ -48,7 +60,7 @@ class Match(models.Model):
     def rate_match(self):
         """Use TrueSkill to modify players skill"""
         # TrueSkill setup
-        setup(mu=300.0, sigma=100.0, beta=50.0, tau=3.0)
+        setup(mu=TRUESKILL_MU, sigma=TRUESKILL_SIGMA, beta=TRUESKILL_BETA, tau=TRUESKILL_TAU)
         if 'scipy' in backends.available_backends():
             # scipy can be used in the current environment
             backends.choose_backend(backend='scipy')
