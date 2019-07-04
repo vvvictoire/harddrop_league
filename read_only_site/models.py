@@ -17,6 +17,7 @@ TRUESKILL_TAU = 3.0
 
 class Player(models.Model):
     """Manages a player during a league"""
+    discord_id = models.IntegerField(default=0, blank=True, null=True)
     discord_handle = models.CharField(max_length=200, default=None)
     discord_nickname = models.CharField(max_length=200, default=None)
     jstris_handle = models.CharField(max_length=200, default=None)

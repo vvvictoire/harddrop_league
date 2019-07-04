@@ -5,6 +5,7 @@ import os
 from django.core.management.base import BaseCommand
 
 from discord.ext import commands
+from discord import utils
 from read_only_site.models import Match, Player
 
 BOT = commands.Bot(command_prefix='!')
@@ -14,12 +15,14 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '_discord_tok
 @BOT.command()
 async def register(context, jstris_handle: str):
     """Registers a new player (format: !register jstris_handle)"""
+    discord_id = context.message.author.id
     player = str(context.message.author)
     nickname = context.message.author.display_name
     mention = context.message.author.mention
     # check if player already exists
-    _, created = Player.objects.get_or_create(discord_handle=player,
-                                              defaults={'discord_nickname': nickname,
+    _, created = Player.objects.get_or_create(discord_id=discord_id,
+                                              defaults={'discord_handle': player,
+                                                        'discord_nickname': nickname,
                                                         'jstris_handle': jstris_handle})
     if created:
         await context.send(mention + ' is now registered!')
@@ -29,15 +32,15 @@ async def register(context, jstris_handle: str):
 @BOT.command()
 async def winner(context):
     """Register a match, mentionning the winner by the loser"""
-    loser_handle = str(context.message.author)
+    loser_id = context.message.author.id
     loser_mention = context.message.author.mention
     if not context.message.mentions:
         await context.send('You must mention the winner!')
         return
-    winner_handle = str(context.message.mentions[0])
     winner_mention = context.message.mentions[0].mention
+    winner_id = context.message.mentions[0].id
     try:
-        player_loser = Player.objects.get(discord_handle=loser_handle)
+        player_loser = Player.objects.get(discord_id=loser_id)
     except Player.DoesNotExist:
         await context.send(loser_mention +
                            ', you are not registered in the'
@@ -46,7 +49,7 @@ async def winner(context):
                            'register to register in the league.')
         return
     try:
-        player_winner = Player.objects.get(discord_handle=winner_handle)
+        player_winner = Player.objects.get(discord_id=winner_id)
     except Player.DoesNotExist:
         await context.send(winner_mention + ' is not (yet) registered in the league!')
         return
@@ -62,6 +65,20 @@ async def winner(context):
 async def github(context):
     """Displays the link to the github repository"""
     await context.send('https://github.com/vvvictoire/harddrop_league')
+
+@BOT.command()
+async def update_id(context):
+    """(Trucy only) Updates the Discord ids in the database"""
+    if context.message.author.id != 156908510049861632:
+        pass
+    players = Player.objects.all()
+    members = context.message.guild.members
+    for player in players:
+        member = utils.find(lambda m: m.display_name == player.discord_nickname, members)
+        if member:
+            player.discord_id = member.id
+            player.save()
+
 
 class Command(BaseCommand):
     """Command class to manage the discord_bot command"""
