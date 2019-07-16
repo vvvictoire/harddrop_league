@@ -39,6 +39,9 @@ async def winner(context):
         return
     winner_mention = context.message.mentions[0].mention
     winner_id = context.message.mentions[0].id
+    if winner_id == loser_id:
+        await context.send('You can\'t win against yourself smh')
+        return
     try:
         player_loser = Player.objects.get(discord_id=loser_id)
     except Player.DoesNotExist:
