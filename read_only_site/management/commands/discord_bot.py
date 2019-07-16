@@ -1,5 +1,6 @@
 """Manages the discord_bot command"""
 
+import math
 import os
 import sys
 
@@ -31,6 +32,20 @@ async def register(context, jstris_handle: str):
         await context.send(mention + ', you already were registered you cheeky m8')
 
 @BOT.command()
+async def rating(context):
+    """Gives the current rating of the author of the message"""
+    player_id = context.message.author.id
+    mention = context.message.author.mention
+    try:
+        player = Player.objects.get(discord_id=player_id)
+    except Player.DoesNotExist:
+        await context.send(mention + ' you are not registered in the league!'
+                           'type ' + BOT.command_prefix +
+                           'register <jstris nickname> to register in the league')
+    await context.send(mention + ' rating: ' + str(math.floor(player.trueskill_mu)))
+
+
+@BOT.command()
 async def winner(context):
     """Register a match, mentionning the winner by the loser"""
     loser_id = context.message.author.id
@@ -50,7 +65,7 @@ async def winner(context):
                            ', you are not registered in the'
                            'league! Type ' +
                            BOT.command_prefix +
-                           'register to register in the league.')
+                           'register <jstris nickname> to register in the league.')
         return
     try:
         player_winner = Player.objects.get(discord_id=winner_id)
