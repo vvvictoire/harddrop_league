@@ -1,6 +1,7 @@
 """Manages the discord_bot command"""
 
 import os
+import sys
 
 from django.core.management.base import BaseCommand
 
@@ -82,6 +83,28 @@ async def update_id(context):
             player.discord_id = member.id
             player.save()
 
+@BOT.command()
+async def update_rankings(context):
+    """(Trucy only) Recompute the rankings"""
+    if context.message.author.id != 156908510049861632:
+        pass
+    players = Player.objects.all()
+    for player in players:
+        player.trueskill_sigma = 100.0
+        player.trueskill_mu = 300.0
+        player.save()
+    matches = Match.objects.all()
+    for match in matches:
+        match.rate_match()
+        match.save()
+
+@BOT.command()
+async def nini(context):
+    """(Trucy only) Shuts down the bot"""
+    if context.message.author.id != 156908510049861632:
+        pass
+    else:
+        sys.exit(0)
 
 class Command(BaseCommand):
     """Command class to manage the discord_bot command"""
