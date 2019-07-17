@@ -32,17 +32,49 @@ async def register(context, jstris_handle: str):
         await context.send(mention + ', you already were registered you cheeky m8')
 
 @BOT.command()
-async def rating(context):
-    """Gives the current rating of the author of the message"""
+async def rating(context, *discord_name):
+    """Gives the current rating of the author of the message or of the player passed in argument"""
+    if not discord_name:
+        player_id = context.message.author.id
+        mention = context.message.author.mention
+        try:
+            player = Player.objects.get(discord_id=player_id)
+        except Player.DoesNotExist:
+            await context.send(mention + ' you are not registered in the league!'
+                               'type ' + BOT.command_prefix +
+                               'register <jstris nickname> to register in the league')
+        await context.send(player.discord_nickname +
+                           ' rating: ' +
+                           str(math.floor(player.trueskill_mu)))
+    else:
+        player_name = ' '.join(discord_name)
+        try:
+            player = Player.objects.get(discord_nickname=player_name)
+        except Player.DoesNotExist:
+            await context.send(player_name + ' is not registered in the league!')
+        await context.send(player.discord_nickname +
+                           ' rating: ' +
+                           str(math.floor(player.trueskill_mu)))
+
+
+@BOT.command()
+async def update_name(context):
+    """Updates the discord name in the database"""
     player_id = context.message.author.id
     mention = context.message.author.mention
+    handle = str(context.message.author)
+    display_name = context.message.author.display_name
     try:
         player = Player.objects.get(discord_id=player_id)
     except Player.DoesNotExist:
         await context.send(mention + ' you are not registered in the league!'
                            'type ' + BOT.command_prefix +
                            'register <jstris nickname> to register in the league')
-    await context.send(mention + ' rating: ' + str(math.floor(player.trueskill_mu)))
+        return
+    player.discord_handle = handle
+    player.discord_nickname = display_name
+    player.save()
+    await context.send('Your Discord name have been updated!')
 
 
 @BOT.command()
