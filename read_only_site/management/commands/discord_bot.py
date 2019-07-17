@@ -9,10 +9,56 @@ from django.core.management.base import BaseCommand
 from discord.ext import commands
 from discord import utils
 from read_only_site.models import Match, Player
+from trueskill import Rating, backends, quality_1vs1, setup
+
+# More details about the constants on https://trueskill.org
+# the initial mean of ratings
+TRUESKILL_MU = 300.0
+# the initial standard deviation of ratings. The recommended value is a third of mu.
+TRUESKILL_SIGMA = 100.0
+# the distance which guarantees about 76% chance of winning.
+# The recommended value is a half of sigma.
+TRUESKILL_BETA = 50.0
+# the dynamic factor which restrains a fixation of rating.
+# The recommended value is sigma per cent.
+TRUESKILL_TAU = 3.0
+
 
 BOT = commands.Bot(command_prefix='!')
 with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '_discord_token'), 'r') as file:
     TOKEN = file.read().replace('\n', '')
+
+@BOT.command()
+async def matchmaking(context):
+    """Finds a player to play against"""
+    discord_id = context.message.author.id
+    mention = context.message.author.mention
+    try:
+        player = Player.objects.get(discord_id=discord_id)
+    except Player.DoesNotExist:
+        await context.send(mention + ' you are not registered in the league!'
+                           'type ' + BOT.command_prefix +
+                           'register <jstris nickname> to register in the league')
+        return
+    # TrueSkill setup
+    setup(mu=TRUESKILL_MU, sigma=TRUESKILL_SIGMA, beta=TRUESKILL_BETA, tau=TRUESKILL_TAU)
+    if 'scipy' in backends.available_backends():
+        # scipy can be used in the current environment
+        backends.choose_backend(backend='scipy')
+    # Setup the Rating for the asking player
+    rating_asking = Rating(mu=player.trueskill_mu, sigma=player.trueskill_sigma)
+    players = Player.objects.exclude(discord_id=discord_id)
+    best_match = None
+    best_quality = 0.0
+    for player_match in players:
+        player_rating = Rating(mu=player_match.trueskill_mu, sigma=player_match.trueskill_sigma)
+        quality = quality_1vs1(rating_asking, player_rating)
+        if quality > best_quality:
+            best_quality = quality
+            best_match = player_match
+    await context.send(player.discord_nickname +
+                       ' should play against ' +
+                       best_match.discord_nickname)
 
 @BOT.command()
 async def register(context, jstris_handle: str):
